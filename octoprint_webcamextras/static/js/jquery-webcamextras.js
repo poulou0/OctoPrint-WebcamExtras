@@ -13,6 +13,7 @@ $(function() {
                     }
                 }
 	        };
+	  
 	        $("#webcam_container").before($('<div class="webcam-extras-floating-window-placeholder">' +
 	            '<span class="fa-stack fa-4x"><i class="fas fa-expand fa-stack-2x"></i><i class="fas fa-window-restore fa-stack-1x"></i></span></div>'));
 	        $("#webcam_container").append('<div class="webcam-extras"></div>');
@@ -24,11 +25,38 @@ $(function() {
 	            var relative = $('#control #webcam_container');
 	            var placeholder = $('.webcam-extras-floating-window-placeholder').show();
 	            if (!$('body > #webcam_container').length) {
-	                if (document.exitFullscreen) document.exitFullscreen();
+	                if (document.fullscreenElement) document.exitFullscreen();
 	                relative.hide().clone(true, true).appendTo('body')
 	                    .fadeIn()
-	                    .draggable({ containment: "window" })
-	                    .resizable({aspectRatio: 16 / 9, handles: "n, e, s, w", minHeight: 150, maxHeight: $( window ).height() - 100});
+	                    .on('mousedown', function(e){
+	                        //https://www.sanwebe.com/2014/10/draggable-element-with-jquery-no-jquery-ui
+	                        var dr = $(this).addClass("drag");
+	                        height = dr.outerHeight();
+	                        width = dr.outerWidth();
+	                        max_left = dr.parent().offset().left + dr.parent().width() - dr.width();
+	                        max_top = dr.parent().offset().top + dr.parent().height() - dr.height();
+	                        min_left = dr.parent().offset().left;
+	                        min_top = dr.parent().offset().top;
+
+	                        ypos = dr.offset().top + height - e.pageY,
+	                        xpos = dr.offset().left + width - e.pageX;
+	                        $(window).on('mousemove', function(e){
+		                        var itop = e.pageY + ypos - height;
+		                        var ileft = e.pageX + xpos - width;
+		                        
+		                        if(dr.hasClass("drag")){
+			                        if(itop <= min_top ) { itop = min_top; }
+			                        if(ileft <= min_left ) { ileft = min_left; }
+			                        if(itop >= max_top ) { itop = max_top; }
+			                        if(ileft >= max_left ) { ileft = max_left; }
+			                        dr.offset({ top: itop,left: ileft});
+		                        }
+	                        }).on('mouseup', function(e){
+			                        dr.removeClass("drag");
+	                        });
+                        });
+	                    //.draggable({ containment: "window" })
+	                    //.resizable({aspectRatio: 16 / 9, handles: "n, e, s, w", minHeight: 150, maxHeight: $( window ).height() - 100});
 	                relative.next().css('opacity', 0);
 	                placeholder.show();
 	            } else {
