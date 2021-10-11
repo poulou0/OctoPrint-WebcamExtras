@@ -31,6 +31,12 @@ body > #webcam_container {
     width: 480px;
     height: 270px;
     z-index: 2;
+    cursor: grab;
+    resize: both;
+    border-radius: 5px;
+}
+body > #webcam_container:active {
+    cursor: move;
 }
 
 body > #webcam_container .keycontrol_overlay { display: none !important; }

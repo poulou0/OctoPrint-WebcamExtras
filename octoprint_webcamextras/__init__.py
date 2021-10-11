@@ -29,8 +29,8 @@ class WebcamExtrasPlugin(octoprint.plugin.SettingsPlugin,
         # Define your plugin's asset files to automatically include in the
         # core UI here.
         return {
-            "js": ["js/jquery-ui.min.js", "js/jquery-webcamextras.js"],
-            "css": ["css/jquery-ui.css", "css/webcamextras.css"],
+            "js": ["js/jquery-webcamextras.js"],
+            "css": ["css/webcamextras.css"],
             "less": []
         }
 
