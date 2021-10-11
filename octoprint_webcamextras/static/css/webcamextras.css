@@ -1,0 +1,36 @@
+#webcam_container {
+    user-select: none;
+}
+
+.webcam-extras-floating-window-placeholder {
+    height: 330px;
+    text-align: center;
+    display: none;
+}
+.webcam-extras-floating-window-placeholder .fa-stack {
+    margin-top: 120px;
+    color: lightgray;
+    cursor: pointer;
+}
+
+.webcam-extras {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    opacity: 0;
+}
+
+.webcam-extras .btn { margin: 2px; }
+
+#webcam_container:hover .webcam-extras { opacity: 1; }
+
+body > #webcam_container {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 480px;
+    height: 270px;
+    z-index: 2;
+}
+
+body > #webcam_container .keycontrol_overlay { display: none !important; }
