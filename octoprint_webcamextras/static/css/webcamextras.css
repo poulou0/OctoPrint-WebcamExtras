@@ -1,5 +1,6 @@
 #webcam_container {
     user-select: none;
+    overflow: hidden;
 }
 
 .webcam-extras-floating-window-placeholder {
@@ -40,3 +41,8 @@ body > #webcam_container:active {
 }
 
 body > #webcam_container .keycontrol_overlay { display: none !important; }
+
+#webcam_rotator { cursor: -webkit-zoom-in;  cursor: zoom-in; }
+#webcam_rotator.zoomed-in { cursor: -webkit-zoom-out;  cursor: zoom-out; }
+#webcam_rotator #webcam_image { transition: all 250ms; }
+body > #webcam_container #webcam_image{ transform: none !important; }
