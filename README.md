@@ -1,6 +1,6 @@
 # OctoPrint-WebcamExtras
 
-Fun & useful extra buttons in the Control tab webcam view
+Fun & useful extra buttons in the webcam view
 
 ## Setup
 
@@ -10,3 +10,8 @@ or manually using this URL:
     https://github.com/poulou0/OctoPrint-WebcamExtras/archive/refs/heads/main.zip
 
 :))
+
+## Compatible with:
+* Default theme
+* [Themefy](https://plugins.octoprint.org/plugins/themeify/)
+* [UI Customizer](https://plugins.octoprint.org/plugins/uicustomizer/) (disable the 'Float/Fullscreen webcam icon')

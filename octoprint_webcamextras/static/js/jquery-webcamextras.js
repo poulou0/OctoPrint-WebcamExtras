@@ -2,11 +2,12 @@ $(function() {
     function WebcamExtrasViewModel(parameters) {
         this.onStartupComplete = function() {
 
-			var fullscreen_handler = function() {
+			var fullscreen_handler = function(e) {
                 if (!document.fullscreenElement) {
-                    var elem = $("body > #webcam_container")[0] || $("#control #webcam_container")[0];
-                    var req = elem.requestFullScreen || elem.webkitRequestFullScreen || elem.mozRequestFullScreen;
-                    req.call(elem);
+                    var elem = $(e.currentTarget).parents("#webcam_container").get(0);
+					if (!elem) elem = $(e.currentTarget).parents("#IUCWebcamContainer").get(0);
+					var req = elem.requestFullScreen || elem.webkitRequestFullScreen || elem.mozRequestFullScreen;
+					req.call(elem);
                 } else {
                     if (document.exitFullscreen) {
                         document.exitFullscreen();
@@ -16,17 +17,19 @@ $(function() {
 	  
 	        $("#webcam_container").before($('<div class="webcam-extras-floating-window-placeholder">' +
 	            '<span class="fa-stack fa-4x"><i class="fas fa-expand fa-stack-2x"></i><i class="fas fa-window-restore fa-stack-1x"></i></span></div>'));
-	        $("#webcam_container").append('<div class="webcam-extras"></div>');
-			$(".webcam-extras").append($('<button class="btn webcam-extras-floating-window"><i class="fas fa-window-restore fa-flip-horizontal"></i></button>'));
+	        $("#webcam_container, #IUCWebcamContainer").append('<div class="webcam-extras"></div>');
+			$("#webcam_container .webcam-extras").append($('<button class="btn webcam-extras-floating-window"><i class="fas fa-window-restore fa-flip-horizontal"></i></button>'));
             $(".webcam-extras").append($('<button class="btn btn-primary webcam-extras-fullscreen"><i class="fas fa-expand"></i></button>'));
-	        $("#webcam_rotator").on("click", function(e) {
-				if(!$("#webcam_rotator").hasClass("zoomed-in")) {
+	        $("#webcam_rotator, #IUCWebcamContainerInner").on("click", function(e) {
+				var img_wrapper = $(this);
+				var img = img_wrapper.find("img");
+				if(!img_wrapper.hasClass("zoomed-in")) {
 					var zoomHandler = function(e) {
 						function getCursorPos(e) {
 							var a, x = 0, y = 0;
 							e = e || window.event;
 							/*get the x and y positions of the image:*/
-							a = document.getElementById("webcam_rotator").getBoundingClientRect();
+							a = img_wrapper[0].getBoundingClientRect();
 							/*calculate the cursor's x and y coordinates, relative to the image:*/
 							x = e.pageX - a.left;
 							y = e.pageY - a.top;
@@ -36,25 +39,25 @@ $(function() {
 							return {x : x, y : y};
 						}
 						var pos = getCursorPos(e);
-						$("#webcam_image").css(
+						img.css(
 							"transform",
-							"scale(3) translate(" + ($("#webcam_image").width()/3 - pos.x/1.5) + "px, " + ($("#webcam_image").height()/3 - pos.y / 1.5) + "px)"
+							"scale(3) translate(" + (img.width()/3 - pos.x/1.5) + "px, " + (img.height()/3 - pos.y / 1.5) + "px)"
 						);
 					}
 					zoomHandler(e);
 					
-					$("#webcam_rotator").on("mousemove touchmove", zoomHandler);
-					$("#webcam_rotator").on("mouseout touchout", function(e) {
-						$("#webcam_image").css("transform", "none");
+					img_wrapper.on("mousemove touchmove", zoomHandler);
+					img_wrapper.on("mouseout touchout", function(e) {
+						img.css("transform", "none");
 					});
 				} else {
-					$("#webcam_rotator").off("mousemove touchmove mouseout touchout");
-					$("#webcam_image").css("transform", "none");
+					img_wrapper.off("mousemove touchmove mouseout touchout");
+					img.css("transform", "none");
 				}
-				$("#webcam_rotator").toggleClass("zoomed-in");
+				img_wrapper.toggleClass("zoomed-in");
 			});
 			$('.webcam-extras-fullscreen').on("click", fullscreen_handler);
-	        $('#webcam_container').on("dblclick", fullscreen_handler);
+	        $('#webcam_rotator, #IUCWebcamContainerInner').on("dblclick", fullscreen_handler);
 	        $('.webcam-extras-floating-window, .webcam-extras-floating-window-placeholder .fa-stack').on("click", function() {
 	            var relative = $('#control #webcam_container');
 	            var placeholder = $('.webcam-extras-floating-window-placeholder').show();

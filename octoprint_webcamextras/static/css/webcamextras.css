@@ -1,4 +1,5 @@
-#webcam_container {
+#webcam_container,
+#IUCWebcamContainer {
     user-select: none;
     overflow: hidden;
 }
@@ -20,10 +21,12 @@
     top: 5px;
     opacity: 0;
 }
+#IUCWebcamContainer .webcam-extras { right: 20px; top: 15px; }
 
 .webcam-extras .btn { margin: 2px; }
 
-#webcam_container:hover .webcam-extras { opacity: 1; }
+#webcam_container:hover .webcam-extras,
+#IUCWebcamContainer:hover .webcam-extras { opacity: 1; }
 
 body > #webcam_container {
     position: fixed;
@@ -42,7 +45,10 @@ body > #webcam_container:active {
 
 body > #webcam_container .keycontrol_overlay { display: none !important; }
 
-#webcam_rotator { cursor: -webkit-zoom-in;  cursor: zoom-in; }
-#webcam_rotator.zoomed-in { cursor: -webkit-zoom-out;  cursor: zoom-out; }
-#webcam_rotator #webcam_image { transition: all 250ms; }
-body > #webcam_container #webcam_image{ transform: none !important; }
+/* https://github.com/jhuckaby/Effect-Games/tree/master/htdocs/images/cursors */
+#webcam_rotator,
+#IUCWebcamContainerInner { cursor: url(zoom-in.cur), auto; }
+#webcam_rotator.zoomed-in,
+#IUCWebcamContainerInner.zoomed-in { cursor: url(zoom-out.cur), auto; }
+#webcam_rotator img,
+#IUCWebcamContainerInner img { transition: all 250ms; }
