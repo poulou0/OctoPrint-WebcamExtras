@@ -47,8 +47,11 @@ body > #webcam_container .keycontrol_overlay { display: none !important; }
 
 /* https://github.com/jhuckaby/Effect-Games/tree/master/htdocs/images/cursors */
 #webcam_rotator,
-#IUCWebcamContainerInner { cursor: url(zoom-in.cur), auto; }
+#IUCWebcamContainerInner,
+#UICWebCamFull img { cursor: url(zoom-in.cur), auto; }
 #webcam_rotator.zoomed-in,
-#IUCWebcamContainerInner.zoomed-in { cursor: url(zoom-out.cur), auto; }
+#IUCWebcamContainerInner.zoomed-in,
+#UICWebCamFull.zoomed-in img { cursor: url(zoom-out.cur), auto; }
 #webcam_rotator img,
-#IUCWebcamContainerInner img { transition: all 250ms; }
+#IUCWebcamContainerInner img,
+#UICWebCamFull img { transition: all 250ms; }

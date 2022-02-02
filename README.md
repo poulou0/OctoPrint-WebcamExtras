@@ -9,9 +9,9 @@ or manually using this URL:
 
     https://github.com/poulou0/OctoPrint-WebcamExtras/archive/refs/heads/main.zip
 
-:))
-
 ## Compatible with:
 * Default theme
 * [Themefy](https://plugins.octoprint.org/plugins/themeify/)
-* [UI Customizer](https://plugins.octoprint.org/plugins/uicustomizer/) (disable the 'Float/Fullscreen webcam icon')
+* [UI Customizer](https://plugins.octoprint.org/plugins/uicustomizer/)
+
+:))
