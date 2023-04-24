@@ -15,3 +15,6 @@ or manually using this URL:
 * [UI Customizer](https://plugins.octoprint.org/plugins/uicustomizer/)
 
 :))
+
+## Known issues
+* Rotated webcam

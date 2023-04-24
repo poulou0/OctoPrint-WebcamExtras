@@ -43,18 +43,19 @@ $(function () {
                         var pos = getCursorPos(e);
                         img.css(
                             "transform",
-                            "scale(3) translate(" + (img.width() / 3 - pos.x / 1.5) + "px, " + (img.height() / 3 - pos.y / 1.5) + "px)"
+                            (img.hasClass("flipH") ? "scaleX(-1) scaleY(-1)" : (img.hasClass("flipH") ? "scaleX(-1)" : (img.hasClass("flipV") ? "scaleY(-1)" : ""))) +
+                            " scale(3) translate(" + (img.width() / 3 - pos.x / 1.5) * (img.hasClass("flipH") ? -1 : 1) + "px, " + (img.height() / 3 - pos.y / 1.5) * (img.hasClass("flipV") ? -1 : 1) + "px)"
                         );
                     }
                     zoomHandler(e);
 
                     img_wrapper.on("mousemove touchmove", zoomHandler);
                     img_wrapper.on("mouseout touchout", function (e) {
-                        img.css("transform", "none");
+                        img.css("transform", img.hasClass("flipH") ? "scaleX(-1) scaleY(-1)" : (img.hasClass("flipH") ? "scaleX(-1)" : (img.hasClass("flipV") ? "scaleY(-1)" : "none")));
                     });
                 } else {
                     img_wrapper.off("mousemove touchmove mouseout touchout");
-                    img.css("transform", "none");
+                    img.css("transform", img.hasClass("flipH") ? "scaleX(-1) scaleY(-1)" : (img.hasClass("flipH") ? "scaleX(-1)" : (img.hasClass("flipV") ? "scaleY(-1)" : "none")));
                 }
                 img_wrapper.toggleClass("zoomed-in");
             });
@@ -109,7 +110,7 @@ $(function () {
         };
     }
 
-    if ($("#webcam_container").length === 0) {
+    if ($("#webcam_container").length !== 0) {
         OCTOPRINT_VIEWMODELS.push([
             WebcamExtrasViewModel,
             ["controlViewModel"],
