@@ -1,6 +1,6 @@
 # OctoPrint-WebcamExtras
 
-Fun & useful extra buttons in the webcam view
+Zoom, fullscreen and minimize the webcam view
 
 ## Setup
 
@@ -12,7 +12,7 @@ or manually using this URL:
 ## Compatible with:
 * Default theme
 * [Themefy](https://plugins.octoprint.org/plugins/themeify/)
-* [UI Customizer](https://plugins.octoprint.org/plugins/uicustomizer/)
+* [UI Customizer](https://plugins.octoprint.org/plugins/uicustomizer/) (uncheck "Float/Fullscreen webcam" on the settings)
 
 :))
 
