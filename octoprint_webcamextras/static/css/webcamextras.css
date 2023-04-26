@@ -63,4 +63,4 @@ body > #webcam_img_container .keycontrol_overlay { display: none !important; }
 #webcam_rotator img,
 .webcam_unrotated img,
 #IUCWebcamContainerInner img,
-#UICWebCamFull img { transition: all 250ms; }
+#UICWebCamFull img { transition: all 250ms; max-width: 100vw; max-height: 100vh; }
