@@ -1,4 +1,5 @@
 $(function () {
+    if ($(".touchui").length) return;
     var webcam_container_selector = $("#webcam_container").length === 0 ? "#webcam_img_container" : "#webcam_container";
     function WebcamExtrasViewModel(parameters) {
         this.onStartupComplete = function () {

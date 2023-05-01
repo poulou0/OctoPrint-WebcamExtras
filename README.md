@@ -11,7 +11,7 @@ or manually using this URL:
 
 ## Compatible with:
 * Default theme
-* [Themefy](https://plugins.octoprint.org/plugins/themeify/)
+* [Themeify](https://plugins.octoprint.org/plugins/themeify/)
 * [UI Customizer](https://plugins.octoprint.org/plugins/uicustomizer/) (uncheck "Float/Fullscreen webcam" on the settings)
 
 :))
