@@ -1,6 +1,5 @@
-#webcam_container,
-#webcam_img_container,
-#IUCWebcamContainer {
+#webcam_plugins_container,
+#dashboard_webcam_container {
     user-select: none;
     overflow: hidden;
 }
@@ -22,17 +21,12 @@
     top: 5px;
     opacity: 0;
 }
-#IUCWebcamContainer .webcam-extras { right: 20px; top: 15px; }
-#IUCWebcamContainer .accordion-inner .webcam-extras { display: none; }
 
 .webcam-extras .btn { margin: 2px; }
 
-#webcam_container:hover .webcam-extras,
-#webcam_img_container:hover .webcam-extras,
-#IUCWebcamContainer:hover .webcam-extras { opacity: 1; }
+#webcam_plugins_container:hover .webcam-extras { opacity: 1; }
 
-body > #webcam_container,
-body > #webcam_img_container {
+body > #webcam_plugins_container {
     position: fixed;
     bottom: 10px;
     right: 10px;
@@ -43,24 +37,24 @@ body > #webcam_img_container {
     resize: both;
     border-radius: 5px;
 }
-body > #webcam_container:active,
-body > #webcam_img_container:active {
+body > #webcam_plugins_container:active {
     cursor: move;
 }
 
-body > #webcam_container .keycontrol_overlay,
-body > #webcam_img_container .keycontrol_overlay { display: none !important; }
+body > #webcam_plugins_container .keycontrol_overlay { display: none !important; }
 
 /* https://github.com/jhuckaby/Effect-Games/tree/master/htdocs/images/cursors */
 #webcam_rotator,
 .webcam_unrotated,
-#IUCWebcamContainerInner,
-#UICWebCamFull img { cursor: url(zoom-in.cur), auto; }
+#dashboard_webcam_toggle { cursor: url(zoom-in.cur), auto; }
 #webcam_rotator.zoomed-in,
 .webcam_unrotated.zoomed-in,
-#IUCWebcamContainerInner.zoomed-in,
-#UICWebCamFull.zoomed-in img { cursor: url(zoom-out.cur), auto; }
+#dashboard_webcam_toggle.zoomed-in { cursor: url(zoom-out.cur), auto; }
 #webcam_rotator img,
-.webcam_unrotated img,
-#IUCWebcamContainerInner img,
-#UICWebCamFull img { transition: all 250ms; max-width: 100vw; max-height: 100vh; }
+.webcam_unrotated img { transition: all 250ms; max-width: 100vw; max-height: 100vh; }
+
+/** THIRD PARTY INTEGRATIONS */
+/* UI Customizer, hide the floating window button on the column widget  */
+#IUCWebcamContainer .accordion-inner .webcam-extras .webcam-extras-floating-window-button { display: none; }
+/* MultiCam, move the camera selector to the left */
+#webcam_plugins_container .nav { right: auto; left: 5px; }
