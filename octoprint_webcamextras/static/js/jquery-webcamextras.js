@@ -1,13 +1,13 @@
 $(function () {
     if ($(".touchui").length) return;
-    var webcam_container_selector = $("#webcam_container").length === 0 ? "#webcam_img_container" : "#webcam_container";
+    var webcam_container_selector = "#webcam_plugins_container, #dashboard_webcam_container";
+    var webcam_container_selector_control_tab = "#webcam_plugins_container";
     function WebcamExtrasViewModel(parameters) {
         this.onStartupComplete = function () {
 
             var fullscreen_handler = function (e) {
                 if (!document.fullscreenElement) {
                     var elem = $(e.currentTarget).parents(webcam_container_selector).get(0);
-                    if (!elem) elem = $(e.currentTarget).parents("#IUCWebcamContainer").get(0);
                     var req = elem.requestFullScreen || elem.webkitRequestFullScreen || elem.mozRequestFullScreen;
                     req.call(elem);
                 } else {
@@ -19,11 +19,11 @@ $(function () {
 
             $(webcam_container_selector).before($('<div class="webcam-extras-floating-window-placeholder">' +
                 '<span class="fa-stack fa-4x"><i class="fas fa-expand fa-stack-2x"></i><i class="fas fa-window-restore fa-stack-1x"></i></span></div>'));
-            if (!$(webcam_container_selector).find(".UICWebCamClick").length) $(webcam_container_selector).append('<div class="webcam-extras"></div>');
-            if (!$("#IUCWebcamContainer").find(".UICWebCamClick").length) $("#IUCWebcamContainer").append('<div class="webcam-extras"></div>');
-            $(webcam_container_selector + " .webcam-extras").append($('<button class="btn webcam-extras-floating-window"><i class="fas fa-window-restore fa-flip-horizontal"></i></button>'));
+            $(webcam_container_selector).append('<div class="webcam-extras"></div>');
+            $(webcam_container_selector).find(".webcam-extras").append($('<button class="btn webcam-extras-floating-window-button"><i class="fas fa-window-restore fa-flip-horizontal"></i></button>'));
             $(".webcam-extras").append($('<button class="btn btn-primary webcam-extras-fullscreen"><i class="fas fa-expand"></i></button>'));
-            $(document).on("click", "#webcam_rotator, .webcam_unrotated, #IUCWebcamContainerInner, #UICWebCamFull", function (e) {
+
+            $(document).on("click", "#webcam_rotator, .webcam_unrotated, #dashboard_webcam_toggle", function (e) {
                 var img_wrapper = $(this);
                 var img = img_wrapper.find("img");
                 if (!img_wrapper.hasClass("zoomed-in")) {
@@ -60,16 +60,17 @@ $(function () {
                 }
                 img_wrapper.toggleClass("zoomed-in");
             });
-            $('.webcam-extras-fullscreen').on("click", fullscreen_handler);
-            if (!$(webcam_container_selector).find(".UICWebCamClick").length) $('#webcam_rotator').on("dblclick", fullscreen_handler);
-            if (!$("#IUCWebcamContainer").find(".UICWebCamClick").length) $('#IUCWebcamContainerInner').on("dblclick", fullscreen_handler);
-            $('.webcam-extras-floating-window, .webcam-extras-floating-window-placeholder .fa-stack').on("click", function () {
-                var relative = $('#control ' + webcam_container_selector);
+            $(document).on("dblclick", "#webcam_rotator, .webcam_unrotated, #dashboard_webcam_toggle", fullscreen_handler);
+
+            $(document).on("click", ".webcam-extras-fullscreen", fullscreen_handler);
+            $(document).on("click", ".webcam-extras-floating-window-button, .webcam-extras-floating-window-placeholder .fa-stack", function () {
+                var relative = $('#control ' + webcam_container_selector_control_tab);
                 var placeholder = $('.webcam-extras-floating-window-placeholder').show();
-                if (!$('body > ' + webcam_container_selector).length) {
+                if (!$('body > .webcam-extras-floating-window').length) {
                     if (document.fullscreenElement) document.exitFullscreen();
                     relative.hide().clone(true, true).appendTo('body')
                         .fadeIn()
+                        .addClass("webcam-extras-floating-window")
                         .on('mousedown', function (e) {
                             //https://www.sanwebe.com/2014/10/draggable-element-with-jquery-no-jquery-ui
                             var dr = $(this).addClass("drag");
@@ -102,7 +103,7 @@ $(function () {
                     relative.next().css('opacity', 0);
                     placeholder.show();
                 } else {
-                    $('body > ' + webcam_container_selector).remove();
+                    $('body > .webcam-extras-floating-window').remove();
 
                     relative.fadeIn().next().css('opacity', 1);
                     placeholder.hide();
@@ -111,17 +112,7 @@ $(function () {
         };
     }
 
-    if ($("#webcam_container").length !== 0) {
-        OCTOPRINT_VIEWMODELS.push([
-            WebcamExtrasViewModel,
-            ["controlViewModel"],
-            ["#webcam_container"]
-        ]);
-    } else {
-        OCTOPRINT_VIEWMODELS.push([
-            WebcamExtrasViewModel,
-            ["controlViewModel"],
-            ["#webcam_img_container"]
-        ]);
-    }
+    OCTOPRINT_VIEWMODELS.push([
+        WebcamExtrasViewModel,
+    ]);
 });
