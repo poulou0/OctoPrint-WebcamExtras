@@ -45,7 +45,7 @@ git config blame.ignoreRevsFile .git-blame-ignore-revs
 source ./venv/bin/activate
 octoprint serve
 ```
-Listening on `http://0.0.0.0:5000` and `http://[::]:5000`
+Listening on http://0.0.0.0:5000 and http://[::]:5000 (`admin:admin` for credentials)
 ### Plugin dev
 > https://docs.octoprint.org/en/master/plugins/gettingstarted.html
 

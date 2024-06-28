@@ -9,6 +9,7 @@
     text-align: center;
     display: none;
 }
+
 .webcam-extras-floating-window-placeholder .fa-stack {
     margin-top: 120px;
     color: lightgray;
@@ -20,41 +21,84 @@
     right: 5px;
     top: 5px;
     opacity: 0;
+    transition: opacity 0.3s;
 }
 
-.webcam-extras .btn { margin: 2px; }
+.webcam-extras a .fas {
+    margin: 2px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 8px 10px;
+    display: inline-block;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
 
-#webcam_plugins_container:hover .webcam-extras { opacity: 1; }
+.webcam-extras a .fas:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
 
-body > #webcam_plugins_container {
+.webcam-extras a .fas.fa-expand {
+    background-color: rgba(18, 192, 0, 0.5);
+}
+.webcam-extras a .fas.fa-expand:hover {
+    background-color: rgba(18, 192, 0, 0.7);
+}
+
+#webcam_plugins_container:hover .webcam-extras {
+    opacity: 1;
+}
+
+body>#webcam_plugins_container {
     position: fixed;
     bottom: 10px;
     right: 10px;
     width: 480px;
+    min-width: 480px;
     height: 270px;
     z-index: 2;
     cursor: grab;
     resize: both;
     border-radius: 5px;
 }
-body > #webcam_plugins_container:active {
+
+body>#webcam_plugins_container:active {
     cursor: move;
 }
 
-body > #webcam_plugins_container .keycontrol_overlay { display: none !important; }
+body>#webcam_plugins_container .keycontrol_overlay {
+    display: none !important;
+}
 
 /* https://github.com/jhuckaby/Effect-Games/tree/master/htdocs/images/cursors */
 #webcam_rotator,
 .webcam_unrotated,
-#dashboard_webcam_toggle { cursor: url(zoom-in.cur), auto; }
+#dashboard_webcam_toggle {
+    cursor: url(zoom-in.cur), auto;
+}
+
 #webcam_rotator.zoomed-in,
 .webcam_unrotated.zoomed-in,
-#dashboard_webcam_toggle.zoomed-in { cursor: url(zoom-out.cur), auto; }
+#dashboard_webcam_toggle.zoomed-in {
+    cursor: url(zoom-out.cur), auto;
+}
+
 #webcam_rotator img,
-.webcam_unrotated img { transition: all 250ms; max-width: 100vw; max-height: 100vh; }
+.webcam_unrotated img {
+    transition: all 250ms;
+    max-width: 100vw;
+    max-height: 100vh;
+}
 
 /** THIRD PARTY INTEGRATIONS */
 /* UI Customizer, hide the floating window button on the column widget  */
-#IUCWebcamContainer .accordion-inner .webcam-extras .webcam-extras-floating-window-button { display: none; }
+#IUCWebcamContainer .accordion-inner .webcam-extras .webcam-extras-floating-window-button {
+    display: none;
+}
+
 /* MultiCam, move the camera selector to the left */
-#webcam_plugins_container .nav { right: auto; left: 5px; }
+#webcam_plugins_container .nav {
+    right: auto;
+    left: 5px;
+}

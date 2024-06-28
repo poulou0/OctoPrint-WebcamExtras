@@ -20,8 +20,8 @@ $(function () {
             $(webcam_container_selector).before($('<div class="webcam-extras-floating-window-placeholder">' +
                 '<span class="fa-stack fa-4x"><i class="fas fa-expand fa-stack-2x"></i><i class="fas fa-window-restore fa-stack-1x"></i></span></div>'));
             $(webcam_container_selector).append('<div class="webcam-extras"></div>');
-            $(webcam_container_selector).find(".webcam-extras").append($('<button class="btn webcam-extras-floating-window-button"><i class="fas fa-window-restore fa-flip-horizontal"></i></button>'));
-            $(".webcam-extras").append($('<button class="btn btn-primary webcam-extras-fullscreen"><i class="fas fa-expand"></i></button>'));
+            $(webcam_container_selector).find(".webcam-extras").append($('<a class="webcam-extras-floating-window-button"><i class="fas fa-window-restore fa-flip-horizontal"></i></a>'));
+            $(".webcam-extras").append($('<a class="webcam-extras-fullscreen"><i class="fas fa-expand"></i></a>'));
 
             $(document).on("click", "#webcam_rotator, .webcam_unrotated, #dashboard_webcam_toggle", function (e) {
                 var img_wrapper = $(this);
@@ -76,10 +76,9 @@ $(function () {
                             var dr = $(this).addClass("drag");
                             height = dr.outerHeight();
                             width = dr.outerWidth();
-                            max_left = dr.parent().offset().left + dr.parent().width() - dr.width();
-                            max_top = dr.parent().offset().top + dr.parent().height() - dr.height();
-                            min_left = dr.parent().offset().left;
-                            min_top = dr.parent().offset().top;
+                            
+                            max_left = window.innerWidth - dr.width();
+                            max_top = window.innerHeight - dr.height();
 
                             ypos = dr.offset().top + height - e.pageY,
                                 xpos = dr.offset().left + width - e.pageX;
@@ -88,8 +87,8 @@ $(function () {
                                 var ileft = e.pageX + xpos - width;
 
                                 if (dr.hasClass("drag")) {
-                                    if (itop <= min_top) { itop = min_top; }
-                                    if (ileft <= min_left) { ileft = min_left; }
+                                    if (itop <= 0) { itop = 0; }
+                                    if (ileft <= 0) { ileft = 0; }
                                     if (itop >= max_top) { itop = max_top; }
                                     if (ileft >= max_left) { ileft = max_left; }
                                     dr.offset({ top: itop, left: ileft });
@@ -109,6 +108,17 @@ $(function () {
                     placeholder.hide();
                 }
             });
+            $(window).on("resize", function() {
+                var floatingWindow = $('body > .webcam-extras-floating-window');
+                if (floatingWindow.length) {
+                    var max_top = window.innerHeight - floatingWindow.height();
+                    var max_left = window.innerWidth - floatingWindow.width();
+                    var itop = floatingWindow.offset().top;
+                    var ileft = floatingWindow.offset().left;
+                    if (itop >= max_top) { floatingWindow.offset({ top: max_top }); }
+                    if (ileft >= max_left) { floatingWindow.offset({ left: max_left }); }
+                }
+            })
         };
     }
 
